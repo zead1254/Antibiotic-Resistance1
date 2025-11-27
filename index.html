@@ -944,37 +944,476 @@
         </div>
     </section>
 
-    <!-- Smart Doctor Page -->
-    <section class="chatbot-section" id="smart-doctor">
-        <div class="container">
-            <div class="section-title">
-                <h2>Smart Doctor</h2>
-                <p>Interactive AI Assistant for Medical Guidance</p>
-            </div>
-            <div class="chat-container">
-                <div class="chat-header">
-                    <h2><i class="fas fa-robot"></i> Smart Doctor</h2>
-                    <p>Ask me anything about antibiotic resistance and proper medication use</p>
+<!-- Smart Doctor Page -->
+<section class="chatbot-section" id="smart-doctor">
+    <div class="container">
+        <div class="section-title">
+            <h2>Smart Doctor</h2>
+            <p>Interactive AI Assistant for Medical Guidance</p>
+        </div>
+        <div class="ai-assistant-container">
+            <div class="ai-card">
+                <div class="ai-card-header">
+                    <i class="fas fa-robot"></i>
+                    <h3>Advanced AI Medical Assistant</h3>
+                    <p>Experience our intelligent medical AI for personalized healthcare guidance</p>
                 </div>
-                <div class="chat-body">
-                    <div class="message bot-message">
-                        Hello! I'm the Smart Doctor AI assistant. How can I help you with questions about antibiotic resistance today?
-                    </div>
-                    <div class="message user-message">
-                        What is antibiotic resistance?
-                    </div>
-                    <div class="message bot-message">
-                        Antibiotic resistance occurs when bacteria change in response to the use of antibiotics, making the medications less effective. This happens when bacteria survive antibiotic treatment and continue to multiply, potentially causing infections that are harder to treat.
+                <div class="ai-card-body">
+                    <div class="preview-container">
+                        <div class="thumbnail-wrapper">
+                            <img src="P1.png" alt="AI Assistant Preview" class="thumbnail">
+                            <div class="thumbnail-overlay">
+                                <div class="play-button">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="preview-info">
+                            <h4>AI Medical Assistant</h4>
+                            <p>Advanced artificial intelligence for medical consultations and health guidance</p>
+                            <ul class="features-list">
+                                <li><i class="fas fa-check"></i> 24/7 Medical Assistance</li>
+                                <li><i class="fas fa-check"></i> Personalized Health Advice</li>
+                                <li><i class="fas fa-check"></i> Medication Guidance</li>
+                                <li><i class="fas fa-check"></i> Symptom Analysis</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-                <div class="chat-input">
-                    <input type="text" placeholder="Type your message here...">
-                    <button><i class="fas fa-paper-plane"></i></button>
+                <div class="ai-card-footer">
+                    <button class="launch-btn" onclick="launchAssistant()">
+                        <i class="fas fa-rocket"></i>
+                        Launch AI Assistant
+                    </button>
+                    <div class="loading-indicator" id="loadingIndicator">
+                        <div class="spinner"></div>
+                        <span>Opening AI Assistant...</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
+<style>
+.chatbot-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #9cfbff 0%, #ffffff 30%, #06af91 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-title h2 {
+    font-size: 3rem;
+    color: #06af91;
+    margin-bottom: 15px;
+    text-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    animation: fadeInUp 1s ease-out;
+}
+
+.section-title p {
+    font-size: 1.3rem;
+    color: #058a74;
+    font-weight: 500;
+    animation: fadeInUp 1s ease-out 0.2s both;
+}
+
+.ai-assistant-container {
+    max-width: 900px;
+    margin: 0 auto;
+    animation: fadeInUp 1s ease-out 0.4s both;
+}
+
+.ai-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 25px;
+    box-shadow: 0 20px 50px rgba(6, 175, 145, 0.3);
+    overflow: hidden;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(156, 251, 255, 0.4);
+    transform: translateY(0);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ai-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 60px rgba(6, 175, 145, 0.4);
+}
+
+.ai-card-header {
+    background: linear-gradient(135deg, #06af91 0%, #9cfbff 100%);
+    color: white;
+    padding: 40px 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.ai-card-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    animation: float 8s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ai-card-header i {
+    font-size: 4rem;
+    margin-bottom: 25px;
+    display: block;
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.ai-card-header h3 {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 2;
+    font-weight: 700;
+}
+
+.ai-card-header p {
+    font-size: 1.3rem;
+    opacity: 0.95;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+    font-weight: 500;
+}
+
+.ai-card-body {
+    padding: 40px;
+    background: #f8fdfe;
+}
+
+.preview-container {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.thumbnail-wrapper {
+    position: relative;
+    flex: 0 0 300px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transform: perspective(1000px) rotateY(0deg);
+    transition: transform 0.5s ease, box-shadow 0.3s ease;
+}
+
+.thumbnail-wrapper:hover {
+    transform: perspective(1000px) rotateY(5deg) scale(1.05);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
+
+.thumbnail {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.thumbnail-wrapper:hover .thumbnail {
+    transform: scale(1.1);
+}
+
+.thumbnail-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(6, 175, 145, 0.8) 0%, rgba(156, 251, 255, 0.8) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.thumbnail-wrapper:hover .thumbnail-overlay {
+    opacity: 1;
+}
+
+.play-button {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+}
+
+.thumbnail-wrapper:hover .play-button {
+    transform: scale(1);
+}
+
+.play-button i {
+    color: #06af91;
+    font-size: 2rem;
+    margin-left: 5px;
+}
+
+.preview-info {
+    flex: 1;
+}
+
+.preview-info h4 {
+    font-size: 1.8rem;
+    color: #06af91;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.preview-info p {
+    color: #666;
+    margin-bottom: 25px;
+    line-height: 1.6;
+    font-size: 1.1rem;
+}
+
+.features-list {
+    list-style: none;
+    padding: 0;
+}
+
+.features-list li {
+    padding: 8px 0;
+    color: #555;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: transform 0.2s ease;
+}
+
+.features-list li:hover {
+    transform: translateX(10px);
+    color: #06af91;
+}
+
+.features-list li i {
+    color: #06af91;
+    font-size: 0.9rem;
+}
+
+.ai-card-footer {
+    padding: 30px;
+    background: linear-gradient(135deg, #f8fdfe 0%, #e6f9f7 100%);
+    text-align: center;
+    border-top: 2px solid #9cfbff;
+}
+
+.launch-btn {
+    background: linear-gradient(135deg, #06af91 0%, #9cfbff 100%);
+    color: white;
+    border: none;
+    padding: 18px 45px;
+    border-radius: 35px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 8px 25px rgba(6, 175, 145, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.launch-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.6s;
+}
+
+.launch-btn:hover::before {
+    left: 100%;
+}
+
+.launch-btn:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(6, 175, 145, 0.6);
+}
+
+.launch-btn:active {
+    transform: translateY(-2px) scale(1.02);
+}
+
+.loading-indicator {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+    color: #06af91;
+    font-weight: 600;
+}
+
+.spinner {
+    width: 25px;
+    height: 25px;
+    border: 3px solid #9cfbff;
+    border-top: 3px solid #06af91;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .preview-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .thumbnail-wrapper {
+        flex: none;
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .section-title h2 {
+        font-size: 2.2rem;
+    }
+    
+    .ai-card-header {
+        padding: 30px 20px;
+    }
+    
+    .ai-card-header h3 {
+        font-size: 1.8rem;
+    }
+    
+    .ai-card-header i {
+        font-size: 3.2rem;
+    }
+    
+    .ai-card-body {
+        padding: 30px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .chatbot-section {
+        padding: 60px 0;
+    }
+    
+    .section-title h2 {
+        font-size: 1.8rem;
+    }
+    
+    .ai-card-header {
+        padding: 25px 15px;
+    }
+    
+    .ai-card-header i {
+        font-size: 2.8rem;
+    }
+    
+    .ai-card-header h3 {
+        font-size: 1.5rem;
+    }
+    
+    .ai-card-header p {
+        font-size: 1.1rem;
+    }
+    
+    .launch-btn {
+        padding: 15px 30px;
+        font-size: 1.1rem;
+    }
+}
+</style>
+
+<script>
+function launchAssistant() {
+    const loadingIndicator = document.getElementById('loadingIndicator');
+    const launchBtn = document.querySelector('.launch-btn');
+    
+    // Show loading animation
+    loadingIndicator.style.display = 'flex';
+    launchBtn.style.opacity = '0.7';
+    launchBtn.disabled = true;
+    
+    // Simulate loading for better UX
+    setTimeout(() => {
+        // Open the AI Assistant in the same tab
+        window.location.href = 'https://ai.studio/apps/drive/1gzC6zp3XEbsrIxh6o_w8-chGStzZWka-?fullscreenApplet=true';
+    }, 1500);
+}
+
+// Add click event to thumbnail as well
+document.addEventListener('DOMContentLoaded', function() {
+    const thumbnail = document.querySelector('.thumbnail-wrapper');
+    thumbnail.addEventListener('click', launchAssistant);
+});
+
+// Add some interactive animations
+document.addEventListener('DOMContentLoaded', function() {
+    const features = document.querySelectorAll('.features-list li');
+    
+    features.forEach((feature, index) => {
+        feature.style.animationDelay = `${index * 0.1}s`;
+        feature.style.animation = `fadeInUp 0.5s ease-out ${index * 0.1}s both`;
+    });
+});
+</script>
     <!-- Our Tools Page -->
     <section class="tools-section" id="our-tools">
         <div class="container">
