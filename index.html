@@ -818,7 +818,7 @@
                 
                 <div class="video-loading" id="videoLoading">
                     <div class="loading-spinner"></div>
-                    <span></span>
+                    <span>Loading video...</span>
                 </div>
             </div>
             
@@ -826,17 +826,282 @@
                 <h3>Why Antibiotic Resistance Matters</h3>
                 <p>This video explains the critical importance of proper antibiotic use and the dangers of resistance development in modern healthcare.</p>
                 
-
-                </div>
+        
             </div>
         </div>
     </div>
 </section>
 
 <style>
-/* الأساليب السابقة تبقى كما هي مع إضافة التالي */
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-/* Time Overlay Styles - بسيط بدون عد تنازلي */
+.video-section {
+    padding: 4rem 1rem;
+    background: linear-gradient(135deg, #f8fdfe 0%, #e6f9f7 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-title h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: #06af91;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.section-title p {
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Video Container - Responsive Grid */
+.video-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+@media (min-width: 1024px) {
+    .video-container {
+        grid-template-columns: 2fr 1fr;
+        gap: 3rem;
+    }
+}
+
+/* Video Wrapper - Responsive Aspect Ratio */
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(6, 175, 145, 0.3);
+    background: #000;
+    aspect-ratio: 16/9;
+}
+
+.educational-video {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+}
+
+/* إخفاء عناصر التحكم الافتراضية */
+.educational-video::-webkit-media-controls {
+    display: none !important;
+}
+
+/* Custom Controls - Responsive */
+.custom-controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.9));
+    padding: clamp(1rem, 2vw, 1.5rem);
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.video-wrapper:hover .custom-controls {
+    opacity: 1;
+}
+
+/* Progress Bar */
+.progress-container {
+    margin-bottom: clamp(0.8rem, 1.5vw, 1.2rem);
+}
+
+.progress-bar {
+    width: 100%;
+    height: clamp(0.4rem, 1vw, 0.5rem);
+    background: rgba(255,255,255,0.3);
+    border-radius: 0.25rem;
+    position: relative;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(90deg, #06af91, #9cfbff);
+    border-radius: 0.25rem;
+    width: 0%;
+    position: relative;
+}
+
+.progress-handle {
+    width: clamp(1rem, 2vw, 1.2rem);
+    height: clamp(1rem, 2vw, 1.2rem);
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    right: -0.5rem;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+.progress-bar:hover .progress-handle {
+    opacity: 1;
+}
+
+.time-display {
+    font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+    color: rgba(255,255,255,0.9);
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+}
+
+/* Control Buttons */
+.control-buttons {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.8rem, 1.5vw, 1.2rem);
+}
+
+.control-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    cursor: pointer;
+    padding: clamp(0.5rem, 1vw, 0.6rem);
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+    width: clamp(2.5rem, 5vw, 3rem);
+    height: clamp(2.5rem, 5vw, 3rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.control-btn:hover {
+    background: rgba(255,255,255,0.2);
+    transform: scale(1.1);
+}
+
+.volume-slider-container {
+    flex: 1;
+    max-width: clamp(5rem, 10vw, 7rem);
+    margin: 0 0.5rem;
+}
+
+.volume-slider {
+    width: 100%;
+    height: clamp(0.25rem, 0.5vw, 0.3rem);
+    background: rgba(255,255,255,0.3);
+    border-radius: 0.125rem;
+    outline: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: clamp(0.8rem, 1.5vw, 1rem);
+    height: clamp(0.8rem, 1.5vw, 1rem);
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+/* Video Info - Responsive */
+.video-info {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    padding: clamp(1.5rem, 3vw, 2rem);
+    height: fit-content;
+}
+
+.video-info h3 {
+    font-size: clamp(1.5rem, 3vw, 1.8rem);
+    color: #06af91;
+    margin-bottom: clamp(1rem, 2vw, 1.5rem);
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.video-info p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: clamp(1.5rem, 3vw, 2rem);
+    font-size: clamp(1rem, 1.5vw, 1.1rem);
+}
+
+/* Video Chapters */
+.video-chapters h4 {
+    color: #06af91;
+    margin-bottom: clamp(1rem, 2vw, 1.2rem);
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
+    font-weight: 600;
+}
+
+.chapter {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.8rem, 1.5vw, 1rem);
+    padding: clamp(0.8rem, 1.5vw, 1rem);
+    margin-bottom: clamp(0.5rem, 1vw, 0.8rem);
+    background: #f8fdfe;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+}
+
+.chapter:hover {
+    background: #e6f9f7;
+    border-left-color: #06af91;
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(6, 175, 145, 0.2);
+}
+
+.chapter-time {
+    color: #06af91;
+    font-weight: bold;
+    min-width: clamp(2.5rem, 5vw, 3rem);
+    font-size: clamp(0.9rem, 1.5vw, 1rem);
+}
+
+.chapter-title {
+    color: #555;
+    flex: 1;
+    font-size: clamp(0.9rem, 1.5vw, 1rem);
+    font-weight: 500;
+}
+
+/* Time Overlay */
 .time-overlay {
     position: absolute;
     top: 0;
@@ -853,9 +1118,132 @@
     pointer-events: none;
 }
 
-/* إخفاء عناصر التحكم عندما يكون الـ overlay ظاهر */
 .time-overlay:not(.hidden) ~ .custom-controls {
     opacity: 0 !important;
+}
+
+/* Loading State */
+.video-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    gap: 1rem;
+    z-index: 10;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+}
+
+.video-loading.hidden {
+    display: none;
+}
+
+.loading-spinner {
+    width: clamp(2.5rem, 5vw, 3rem);
+    height: clamp(2.5rem, 5vw, 3rem);
+    border: 3px solid #9cfbff;
+    border-top: 3px solid #06af91;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Fullscreen Styles */
+.video-wrapper.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    border-radius: 0;
+}
+
+.video-wrapper.fullscreen .educational-video {
+    object-fit: contain;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+    .video-section {
+        padding: 2rem 1rem;
+    }
+    
+    .section-title {
+        margin-bottom: 2rem;
+    }
+    
+    .video-container {
+        gap: 1.5rem;
+    }
+    
+    .custom-controls {
+        opacity: 1; /* Always show controls on mobile */
+    }
+    
+    .control-buttons {
+        gap: 1rem;
+    }
+    
+    .volume-slider-container {
+        max-width: 4rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .video-section {
+        padding: 1.5rem 0.5rem;
+    }
+    
+    .container {
+        padding: 0 0.5rem;
+    }
+    
+    .video-info {
+        padding: 1.25rem;
+    }
+    
+    .chapter {
+        padding: 0.75rem;
+    }
+    
+    .control-buttons {
+        gap: 0.75rem;
+    }
+}
+
+/* Tablet Optimizations */
+@media (min-width: 769px) and (max-width: 1023px) {
+    .video-container {
+        grid-template-columns: 1fr;
+        max-width: 800px;
+    }
+    
+    .video-wrapper {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+}
+
+/* Large Screen Optimizations */
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1600px;
+    }
+    
+    .video-container {
+        max-width: 1400px;
+    }
 }
 </style>
 
@@ -875,13 +1263,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const videoWrapper = document.querySelector('.video-wrapper');
     const timeOverlay = document.getElementById('timeOverlay');
     
-    const SKIP_TIME = 6; // ثواني
+    const SKIP_TIME = 6;
 
-    // إعدادات الفيديو الأولية
     let videoDuration = 0;
     let isFirstPlay = true;
 
-    // تحديث الوقت والتقدم (مع تعديل التوقيت)
     video.addEventListener('timeupdate', function() {
         if (videoDuration === 0 && video.duration) {
             videoDuration = video.duration;
@@ -895,7 +1281,6 @@ document.addEventListener('DOMContentLoaded', function() {
         progressBar.style.width = `${percent}%`;
         currentTimeEl.textContent = formatTime(displayTime);
         
-        // إخفاء الـ overlay عندما يصل الفيديو إلى 6 ثواني
         if (video.currentTime >= SKIP_TIME && !timeOverlay.classList.contains('hidden')) {
             hideOverlay();
         }
@@ -906,13 +1291,6 @@ document.addEventListener('DOMContentLoaded', function() {
         durationEl.textContent = formatTime(videoDuration - SKIP_TIME);
         videoLoading.classList.add('hidden');
         
-        // ضبط حجم الفيديو
-        if (video.videoWidth > 0 && video.videoHeight > 0) {
-            const aspectRatio = video.videoWidth / video.videoHeight;
-            video.style.objectFit = aspectRatio > 1.7 ? 'cover' : 'contain';
-        }
-        
-        // بدء الفيديو من الثانية 6
         video.currentTime = SKIP_TIME;
     });
 
@@ -920,7 +1298,6 @@ document.addEventListener('DOMContentLoaded', function() {
         timeOverlay.classList.add('hidden');
     }
 
-    // تشغيل/إيقاف
     playPauseBtn.addEventListener('click', function() {
         if (isFirstPlay) {
             video.currentTime = SKIP_TIME;
@@ -947,7 +1324,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // النقر على شريط التقدم للانتقال لوقت معين (مع إضافة 6 ثواني)
     progressContainer.addEventListener('click', function(e) {
         const rect = this.getBoundingClientRect();
         const percent = (e.clientX - rect.left) / rect.width;
@@ -966,7 +1342,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // التحكم في الصوت
     volumeSlider.addEventListener('input', function() {
         video.volume = this.value / 100;
         volumeBtn.innerHTML = this.value == 0 ? 
@@ -986,7 +1361,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // وضع ملء الشاشة
     fullscreenBtn.addEventListener('click', function() {
         if (!document.fullscreenElement) {
             videoWrapper.requestFullscreen().then(() => {
@@ -1001,7 +1375,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // الفصول - الانتقال لوقت معين (مع إضافة 6 ثواني)
     chapters.forEach(chapter => {
         chapter.addEventListener('click', function() {
             const time = parseInt(this.getAttribute('data-time'));
@@ -1019,14 +1392,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // تنسيق الوقت
     function formatTime(seconds) {
         const mins = Math.floor(seconds / 60);
         const secs = Math.floor(seconds % 60);
         return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
     }
 
-    // معالجة الأخطاء
     video.addEventListener('error', function() {
         if (timeOverlay) {
             timeOverlay.classList.add('hidden');
@@ -1038,14 +1409,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 Retry Loading
             </button>
         `;
-    });
-
-    // إعادة ضبط عند تغيير حجم النافذة
-    window.addEventListener('resize', function() {
-        if (video.videoWidth > 0 && video.videoHeight > 0) {
-            const aspectRatio = video.videoWidth / video.videoHeight;
-            video.style.objectFit = aspectRatio > 1.7 ? 'cover' : 'contain';
-        }
     });
 });
 </script>
@@ -1183,7 +1546,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <tr><td>Islam Abdelmonem Ibrahim Mohamed Hamdy</td><td>Member</td></tr>
 <tr><td>Asmaa Nader Abdelzaher Ali</td><td>Website Data Collection</td></tr>
 <tr><td>Ashraf Abdelfattah Abdeldin Abdelmonem</td><td>Card Data Collection and Designer</td></tr>
-<tr><td>Saja Mohamed Mohamed Mousa</td><td>Website Data Collection</td></tr>
+<tr><td>Saja Emad Mohamed Mousa</td><td>Website Data Collection</td></tr>
 <tr><td>Shaza Raed Mohamed Omar Mousa</td><td>Poster Data Collection</td></tr>
 <tr><td>Shahd Mohamed Tawfik Abdelsalam</td><td>Video Data Collection</td></tr>
 <tr><td>Safwat Mohamed Safwat Selim Quider</td><td>Website Data Collection</td></tr>
@@ -1198,7 +1561,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <tr><td>Mohamed Nashaat Abdelbaqi El-sebaei Ibrahim</td><td>Website Data Collection</td></tr>
 <tr><td>Mahmoud Ibrahim Othman Ibrahim Shams</td><td>Video Data Collection</td></tr>
 <tr><td>Marwan Mahmoud Elsayed Abdellatif</td><td>Card Data Collection</td></tr>
-<tr><td>Mariam Ramadan Haroun Yahya Nwegy</td><td>Member</td></tr>
+<tr><td>Mariam Ramadan Haroun Yahya Nwegy</td><td>Video Data Collection</td></tr>
 <tr><td>Mariam Tarek Abdelrazek Sakr</td><td>Poster Data Collection</td></tr>
 <tr><td>Mariam Mohamed Saber Gouda Saafan</td><td>Website Data Collection</td></tr>
 <tr><td>Malak Mohamed Mahmoud Elshaer</td><td>Card Data Collection</td></tr>
